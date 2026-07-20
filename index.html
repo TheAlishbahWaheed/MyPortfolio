@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0"/>
 <title>Alishbah Waheed — IT & AI Researcher</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"/>
 <style>
@@ -57,7 +57,6 @@ body.locked{overflow:hidden}
 #cur.hovering svg{
   transform:scale(1.4) rotate(-10deg);
 }
-/* tiny trailing paw dots */
 .paw-dot{
   position:fixed;pointer-events:none;z-index:99997;
   width:6px;height:6px;border-radius:50%;
@@ -80,15 +79,11 @@ body.locked{overflow:hidden}
   align-items:center;justify-content:center;
   overflow:hidden;
 }
-
-/* Subtle grain texture overlay */
 #intro::before{
   content:'';position:absolute;inset:0;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events:none;opacity:.4;
 }
-
-/* Soft pink blobs on the intro */
 .intro-blob1{
   position:absolute;top:-20%;right:-15%;
   width:600px;height:600px;border-radius:50%;
@@ -107,12 +102,13 @@ body.locked{overflow:hidden}
   66%{transform:translate(-20px,20px) scale(.95)}
 }
 
-/* ── The AW monogram ── */
 .intro-monogram{
   position:relative;z-index:2;
   display:flex;align-items:center;justify-content:center;
   flex-direction:column;
   gap:2rem;
+  padding:0 1.5rem;
+  text-align:center;
 }
 
 .aw-wrap{
@@ -120,7 +116,6 @@ body.locked{overflow:hidden}
   display:flex;align-items:center;justify-content:center;
 }
 
-/* Decorative circle ring that draws itself */
 .aw-ring{
   position:absolute;
   width:220px;height:220px;border-radius:50%;
@@ -137,11 +132,10 @@ body.locked{overflow:hidden}
   to{border-color:rgba(240,168,192,.3)}
 }
 
-/* The giant AW letters */
 .aw-letters{
   font-family:'Playfair Display',serif;
   font-weight:900;
-  font-size:clamp(6rem,18vw,14rem);
+  font-size:clamp(4.5rem,18vw,14rem);
   color:var(--ink);
   letter-spacing:-.04em;
   line-height:1;
@@ -155,7 +149,6 @@ body.locked{overflow:hidden}
 .aw-letters .a-letter{display:inline-block}
 .aw-letters .w-letter{display:inline-block;color:var(--pink2)}
 
-/* State: expanding to full name */
 .aw-letters.expanding{
   font-size:clamp(1.8rem,5vw,3.5rem);
   letter-spacing:.18em;
@@ -166,12 +159,11 @@ body.locked{overflow:hidden}
 .aw-letters.expanding .a-letter{opacity:0;animation:none}
 .aw-letters.expanding .w-letter{opacity:0;animation:none}
 
-/* Full name that appears during expansion */
 .full-name{
   position:absolute;
   font-family:'Playfair Display',serif;
   font-weight:400;font-style:italic;
-  font-size:clamp(1.8rem,5vw,3.2rem);
+  font-size:clamp(1.5rem,5vw,3.2rem);
   letter-spacing:.12em;
   color:var(--ink);
   white-space:nowrap;
@@ -190,10 +182,9 @@ body.locked{overflow:hidden}
 .full-name .fn-first{color:var(--ink)}
 .full-name .fn-last {color:var(--pink2)}
 
-/* Tagline under name */
 .intro-tagline{
   font-family:'DM Mono',monospace;
-  font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;
+  font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;
   color:var(--muted);
   opacity:0;
   transform:translateY(10px);
@@ -201,7 +192,6 @@ body.locked{overflow:hidden}
 }
 @keyframes tagUp{to{opacity:1;transform:none}}
 
-/* Bottom progress line */
 .intro-line{
   position:absolute;bottom:0;left:0;height:2px;width:0;
   background:linear-gradient(90deg,var(--pink3),var(--pink),var(--pink2));
@@ -209,7 +199,6 @@ body.locked{overflow:hidden}
 }
 @keyframes lineGrow{to{width:100%}}
 
-/* Curtain exit */
 .curtain-t,.curtain-b{
   position:absolute;left:0;right:0;z-index:5;
   background:var(--white);
@@ -262,6 +251,29 @@ nav.show{transform:translateY(0)}
 .nav-links a:hover{color:var(--navy)}
 .nav-links a:hover::after{transform:scaleX(1);transform-origin:left}
 
+.nav-toggle{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  width:32px;height:24px;
+  background:none;border:none;
+  cursor:none;
+  padding:0;
+  z-index:900;
+}
+.nav-toggle span{
+  display:block;width:100%;height:2px;
+  background:var(--navy);border-radius:2px;
+  transition:transform .3s ease,opacity .3s ease;
+}
+.nav-toggle.open span:nth-child(1){transform:translateY(9px) rotate(45deg)}
+.nav-toggle.open span:nth-child(2){opacity:0}
+.nav-toggle.open span:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+
+.nav-mobile-panel{
+  display:none;
+}
+
 /* ═══════════════════════════════════
    HERO
 ═══════════════════════════════════ */
@@ -271,7 +283,6 @@ nav.show{transform:translateY(0)}
   padding:9rem 4rem 5rem;
   position:relative;overflow:hidden;
 }
-/* Large decorative letter behind hero text */
 .hero-deco-letter{
   position:absolute;right:-2%;top:50%;
   transform:translateY(-50%);
@@ -320,7 +331,7 @@ nav.show{transform:translateY(0)}
 
 .hero-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(4rem,9vw,8rem);
+  font-size:clamp(2.8rem,9vw,8rem);
   font-weight:400;line-height:.95;
   letter-spacing:-.025em;color:var(--ink);
   margin-bottom:1.8rem;
@@ -368,7 +379,6 @@ nav.show{transform:translateY(0)}
 }
 .cta-ghost:hover{border-color:var(--navy);color:var(--navy);transform:translateY(-3px)}
 
-/* Scroll indicator */
 .scroll-hint{
   position:absolute;bottom:3rem;left:4rem;
   display:flex;align-items:center;gap:.8rem;
@@ -403,7 +413,7 @@ section{padding:8rem 4rem}
 .s-label::before{content:'';width:32px;height:1.5px;background:var(--pink2);border-radius:1px}
 .s-title{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.4rem,4.5vw,4rem);
+  font-size:clamp(2.2rem,4.5vw,4rem);
   font-weight:400;line-height:1.05;letter-spacing:-.02em;color:var(--ink);
 }
 .s-title em{font-style:italic;color:var(--navy)}
@@ -452,7 +462,7 @@ section{padding:8rem 4rem}
   position:relative;overflow:hidden;
   transition:transform .25s,box-shadow .25s,border-color .25s;
 }
-.skill-tile.wide{grid-column:span 2}
+.skill-tile.wide{grid-column:span 3}
 .skill-tile::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,var(--pink),var(--navy));
@@ -464,29 +474,36 @@ section{padding:8rem 4rem}
 .tile-icon{font-size:2rem;margin-bottom:1.2rem;display:block}
 .tile-label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--navy);font-weight:700;margin-bottom:.5rem}
 .tile-desc{font-size:.82rem;color:var(--muted);line-height:1.65}
-.tile-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+.tile-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
 .ttag{
   background:#fff;border:1px solid var(--border2);
-  color:var(--navy);font-size:.63rem;padding:.25rem .72rem;
+  color:var(--navy);font-size:.66rem;padding:.28rem .78rem;
   border-radius:100px;letter-spacing:.05em;font-weight:500;
 }
 
 /* ═══════════════════════════════════
-   EXPERIENCE
+   EXPERIENCE / EDUCATION (timeline)
 ═══════════════════════════════════ */
 #experience{background:var(--blush);border-top:1px solid var(--border)}
+#education{background:#fff}
 .exp-wrap{position:relative;padding-left:2.5rem}
 .exp-wrap::before{
   content:'';position:absolute;left:0;top:0;bottom:0;width:1px;
   background:linear-gradient(180deg,var(--pink),var(--navy2),transparent);
 }
 .exp-node{position:relative;padding:0 0 4rem 3.5rem}
+.exp-node:last-child{padding-bottom:0}
 .exp-node::before{
   content:'';position:absolute;left:-8px;top:8px;
   width:16px;height:16px;border-radius:50%;
   background:linear-gradient(135deg,var(--pink),var(--pink2));
   border:3px solid #fff;
   box-shadow:0 0 0 4px rgba(240,168,192,.3);
+}
+#education .exp-node::before{
+  background:linear-gradient(135deg,var(--navy),var(--navy2));
+  border:3px solid var(--blush);
+  box-shadow:0 0 0 4px rgba(15,39,68,.12);
 }
 .exp-chip{
   display:inline-block;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;
@@ -498,20 +515,29 @@ section{padding:8rem 4rem}
   background:#fff;border:1px solid var(--border);border-radius:16px;padding:2.2rem;
   transition:box-shadow .25s,border-color .25s;
 }
+#education .exp-card{background:var(--blush)}
 .exp-card:hover{box-shadow:0 12px 40px rgba(15,39,68,.08);border-color:var(--pink)}
 .exp-card h3{
   font-family:'Playfair Display',serif;
   font-size:1.6rem;font-weight:400;color:var(--navy);margin-bottom:1rem;
 }
-.exp-card p{font-size:.85rem;color:var(--ink2);line-height:1.8}
+.exp-card p{font-size:.85rem;color:var(--ink2);line-height:1.8;margin-bottom:.5rem}
+.exp-card p:last-child{margin-bottom:0}
+.exp-card ul{margin:.6rem 0 0;padding-left:1.2rem}
+.exp-card li{font-size:.85rem;color:var(--ink2);line-height:1.8;margin-bottom:.35rem}
+.exp-courses{
+  font-size:.78rem;color:var(--muted);line-height:1.8;margin-top:.6rem;
+  padding-top:.9rem;border-top:1px dashed var(--border2);
+}
+.exp-courses strong{color:var(--navy);font-weight:600}
 
 /* ═══════════════════════════════════
    PROJECTS
 ═══════════════════════════════════ */
-#projects{background:#fff}
+#projects{background:var(--blush);border-top:1px solid var(--border)}
 .proj-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
 .proj-card{
-  background:var(--blush);border:1px solid var(--border);
+  background:#fff;border:1px solid var(--border);
   border-radius:16px;padding:2.4rem;
   display:flex;flex-direction:column;gap:1.1rem;
   position:relative;overflow:hidden;
@@ -525,7 +551,16 @@ section{padding:8rem 4rem}
 }
 .proj-card:hover{transform:translateY(-9px);box-shadow:0 32px 70px rgba(15,39,68,.13);border-color:rgba(240,168,192,.7)}
 .proj-card:hover .proj-card-shine{transform:scaleX(1)}
+.proj-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}
 .proj-idx{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.2em;color:var(--pink2);font-weight:400}
+.proj-link{
+  font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--navy);text-decoration:none;
+  display:inline-flex;align-items:center;gap:.35rem;
+  border-bottom:1px solid var(--border2);
+  transition:color .2s,border-color .2s;
+}
+.proj-link:hover{color:var(--pink2);border-color:var(--pink2)}
 .proj-title{
   font-family:'Playfair Display',serif;
   font-size:1.5rem;font-weight:400;color:var(--navy);line-height:1.2;
@@ -533,10 +568,43 @@ section{padding:8rem 4rem}
 .proj-body{font-size:.83rem;color:var(--ink2);flex-grow:1;line-height:1.75}
 .proj-stack{display:flex;flex-wrap:wrap;gap:.4rem}
 .pchip{
-  background:#fff;border:1px solid var(--border2);
+  background:var(--blush);border:1px solid var(--border2);
   color:var(--muted);font-size:.63rem;padding:.2rem .65rem;
   border-radius:100px;letter-spacing:.04em;
 }
+
+/* ═══════════════════════════════════
+   ACHIEVEMENTS & LANGUAGES
+═══════════════════════════════════ */
+#extras{background:#fff}
+.extras-layout{display:grid;grid-template-columns:1.4fr 1fr;gap:2rem;align-items:start}
+.cert-list{display:flex;flex-direction:column;gap:1rem}
+.cert-item{
+  display:flex;align-items:flex-start;gap:1.2rem;
+  background:var(--blush);border:1px solid var(--border);
+  border-radius:14px;padding:1.4rem 1.6rem;
+  transition:transform .2s,border-color .2s,box-shadow .2s;
+}
+.cert-item:hover{transform:translateX(6px);border-color:var(--pink);box-shadow:0 10px 30px rgba(240,168,192,.2)}
+.cert-ico{
+  width:38px;height:38px;flex-shrink:0;border-radius:10px;
+  background:var(--pink3);display:flex;align-items:center;justify-content:center;font-size:1rem;
+}
+.cert-info{flex-grow:1}
+.cert-name{font-size:.86rem;font-weight:600;color:var(--navy)}
+.cert-by{font-size:.75rem;color:var(--muted);margin-top:.15rem}
+.lang-box{
+  background:var(--navy);border-radius:16px;padding:2.2rem;
+  color:#fff;height:100%;
+}
+.lang-box h3{
+  font-family:'Playfair Display',serif;font-weight:400;font-style:italic;
+  font-size:1.4rem;margin-bottom:1.6rem;
+}
+.lang-row{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.12)}
+.lang-row:last-child{border-bottom:none}
+.lang-name{font-size:.9rem;font-weight:600}
+.lang-level{font-family:'DM Mono',monospace;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)}
 
 /* ═══════════════════════════════════
    CONTACT
@@ -575,9 +643,9 @@ section{padding:8rem 4rem}
 }
 .clink:hover{transform:translateX(7px);border-color:var(--pink);box-shadow:0 6px 24px rgba(240,168,192,.22)}
 .clink-ico{width:40px;height:40px;background:var(--pink3);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
-.clink-info{flex-grow:1}
+.clink-info{flex-grow:1;min-width:0}
 .clink-lbl{font-size:.58rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
-.clink-val{font-size:.83rem;color:var(--ink)}
+.clink-val{font-size:.83rem;color:var(--ink);overflow-wrap:anywhere}
 .clink-arr{color:var(--pink2)}
 
 .cf{display:flex;flex-direction:column;gap:1.2rem}
@@ -612,6 +680,7 @@ footer{
   background:var(--navy);padding:3rem 4rem;
   display:flex;align-items:center;justify-content:space-between;
   border-top:1px solid rgba(255,255,255,.06);
+  flex-wrap:wrap;gap:1rem;
 }
 .footer-brand{
   font-family:'Playfair Display',serif;
@@ -633,20 +702,82 @@ footer{
    RESPONSIVE
 ═══════════════════════════════════ */
 @media(max-width:1024px){
+  section{padding:6rem 2.5rem}
+  #home{padding:8rem 2.5rem 4rem}
+  nav{padding:1.2rem 2.5rem}
   .skills-bento{grid-template-columns:repeat(2,1fr)}
   .skill-tile.wide{grid-column:span 2}
   .proj-grid{grid-template-columns:1fr}
+  .about-layout{gap:3.5rem}
+  .extras-layout{grid-template-columns:1fr}
 }
+
+@media(max-width:860px){
+  .nav-links{display:none}
+  .nav-toggle{display:flex}
+  nav{padding:1.1rem 1.5rem}
+  .nav-mobile-panel{
+    display:block;
+    position:fixed;top:0;right:0;
+    width:min(78vw,320px);height:100vh;
+    background:#fff;
+    z-index:850;
+    box-shadow:-14px 0 50px rgba(15,39,68,.18);
+    padding:6.5rem 2.2rem 2rem;
+    transform:translateX(100%);
+    transition:transform .45s cubic-bezier(.16,1,.3,1);
+    display:flex;flex-direction:column;gap:1.6rem;
+  }
+  .nav-mobile-panel.open{transform:translateX(0)}
+  .nav-mobile-panel a{
+    font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--navy);text-decoration:none;font-weight:600;
+    padding-bottom:.6rem;border-bottom:1px solid var(--border);
+  }
+  .nav-scrim{
+    display:none;position:fixed;inset:0;background:rgba(15,39,68,.35);
+    z-index:840;backdrop-filter:blur(2px);
+  }
+  .nav-scrim.open{display:block}
+}
+
 @media(max-width:768px){
-  nav{padding:1rem 1.5rem}.nav-links{display:none}
   section{padding:5rem 1.5rem}
   #home{padding:7.5rem 1.5rem 4rem}
+  .hero-inner{width:100%}
+  .hero-title{font-size:clamp(2.4rem,11vw,4.5rem)}
+  .hero-sub{font-size:.88rem}
+  .hero-ctas{gap:.8rem}
+  .cta-main,.cta-ghost{padding:.85rem 1.5rem;font-size:.68rem}
+  .scroll-hint{left:1.5rem;bottom:1.8rem}
   .about-layout,.contact-layout{grid-template-columns:1fr;gap:3rem}
-  .skills-bento{grid-template-columns:1fr}.skill-tile.wide{grid-column:span 1}
+  .about-cards{gap:.9rem}
+  .skills-bento{grid-template-columns:1fr}
+  .skill-tile.wide{grid-column:span 1}
+  .skill-tile{padding:1.7rem}
+  .exp-wrap{padding-left:1.3rem}
+  .exp-node{padding-left:2.2rem;padding-bottom:2.8rem}
+  .exp-card{padding:1.5rem}
+  .exp-card h3{font-size:1.3rem}
+  .proj-card{padding:1.8rem}
   .frow{grid-template-columns:1fr}
-  footer{flex-direction:column;gap:1rem;text-align:center}
+  .extras-layout{grid-template-columns:1fr;gap:1.5rem}
+  .contact-brand{padding:1.7rem;font-size:1.6rem}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2.4rem 1.5rem}
+  .s-title{font-size:clamp(1.9rem,7vw,2.6rem)}
   #cur,#cur-trail{display:none}
   .paw-dot{display:none}
+  body{cursor:auto}
+  .cf-btn{cursor:pointer}
+  .nav-toggle{cursor:pointer}
+}
+
+@media(max-width:420px){
+  .hero-eyebrow{font-size:.58rem;padding:.4rem 1rem}
+  .hero-number{font-size:.6rem}
+  .cert-item{padding:1.1rem 1.2rem}
+  .cert-name{font-size:.8rem}
+  .proj-title{font-size:1.3rem}
 }
 </style>
 </head>
@@ -655,46 +786,29 @@ footer{
 <!-- CAT CURSOR -->
 <div id="cur">
   <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- tail -->
     <path d="M50 63 Q66 72 62 53 Q58 39 50 50" stroke="#f0c8d8" stroke-width="3.5" stroke-linecap="round" fill="none"/>
-    <!-- body -->
     <ellipse cx="37" cy="55" rx="17" ry="15" fill="white" stroke="#f0a8c0" stroke-width="1.5"/>
-    <!-- head -->
     <circle cx="37" cy="32" r="15" fill="white" stroke="#f0a8c0" stroke-width="1.5"/>
-    <!-- left ear outer -->
     <polygon points="23,22 18,8 30,18" fill="white" stroke="#f0a8c0" stroke-width="1.5" stroke-linejoin="round"/>
-    <!-- left ear inner -->
     <polygon points="23,20 20,11 28,18" fill="#fce8f0"/>
-    <!-- right ear outer -->
     <polygon points="51,22 56,8 44,18" fill="white" stroke="#f0a8c0" stroke-width="1.5" stroke-linejoin="round"/>
-    <!-- right ear inner -->
     <polygon points="51,20 54,11 46,18" fill="#fce8f0"/>
-    <!-- eyes (half-closed = sleepy cute) -->
     <path d="M29 31 Q32 28 35 31" stroke="#1a1a2e" stroke-width="2.2" stroke-linecap="round" fill="none"/>
     <path d="M39 31 Q42 28 45 31" stroke="#1a1a2e" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-    <!-- eye shine dots -->
     <circle cx="31" cy="30" r=".9" fill="white" opacity=".8"/>
     <circle cx="41" cy="30" r=".9" fill="white" opacity=".8"/>
-    <!-- nose -->
     <ellipse cx="37" cy="37" rx="2.2" ry="1.6" fill="#f4b8cb"/>
-    <!-- mouth -->
     <path d="M34.8 38.8 Q37 41 39.2 38.8" stroke="#e8849f" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-    <!-- whiskers left -->
     <line x1="20" y1="36" x2="33" y2="37.5" stroke="#d8c0c8" stroke-width="1" stroke-linecap="round" opacity=".8"/>
     <line x1="19" y1="39" x2="33" y2="38.8" stroke="#d8c0c8" stroke-width="1" stroke-linecap="round" opacity=".8"/>
-    <!-- whiskers right -->
     <line x1="54" y1="36" x2="41" y2="37.5" stroke="#d8c0c8" stroke-width="1" stroke-linecap="round" opacity=".8"/>
     <line x1="55" y1="39" x2="41" y2="38.8" stroke="#d8c0c8" stroke-width="1" stroke-linecap="round" opacity=".8"/>
-    <!-- belly spot (cute detail) -->
     <ellipse cx="37" cy="57" rx="8" ry="7" fill="#fdf0f4" opacity=".7"/>
-    <!-- paws -->
     <ellipse cx="27" cy="68" rx="7" ry="5" fill="white" stroke="#f0a8c0" stroke-width="1.5"/>
     <ellipse cx="47" cy="68" rx="7" ry="5" fill="white" stroke="#f0a8c0" stroke-width="1.5"/>
-    <!-- paw toes left -->
     <ellipse cx="23" cy="67.5" rx="2" ry="1.4" fill="#fce8f0"/>
     <ellipse cx="27" cy="66.5" rx="2" ry="1.4" fill="#fce8f0"/>
     <ellipse cx="31" cy="67.5" rx="2" ry="1.4" fill="#fce8f0"/>
-    <!-- paw toes right -->
     <ellipse cx="43" cy="67.5" rx="2" ry="1.4" fill="#fce8f0"/>
     <ellipse cx="47" cy="66.5" rx="2" ry="1.4" fill="#fce8f0"/>
     <ellipse cx="51" cy="67.5" rx="2" ry="1.4" fill="#fce8f0"/>
@@ -709,21 +823,16 @@ footer{
   <div class="curtain-b"></div>
 
   <div class="intro-monogram">
-    <!-- AW big letters -->
     <div class="aw-wrap">
       <div class="aw-ring"></div>
       <div class="aw-ring2"></div>
-      <!-- The text that morphs: starts as big AW, then becomes full name -->
       <div class="aw-letters" id="awLetters">
         <span class="a-letter">A</span><span class="w-letter">W</span>
       </div>
-      <!-- Full name, hidden initially, slides in during morph -->
       <div class="full-name" id="fullName">
         <span class="fn-first">Alishbah&nbsp;</span><span class="fn-last">Waheed</span>
       </div>
     </div>
-
-    <!-- Tagline that appears after name -->
     <div class="intro-tagline" id="introTagline">IT &amp; AI Researcher</div>
   </div>
 
@@ -738,10 +847,26 @@ footer{
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#extras">More</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-scrim" id="navScrim"></div>
+<div class="nav-mobile-panel" id="navMobilePanel">
+  <a href="#home">Home</a>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#experience">Experience</a>
+  <a href="#education">Education</a>
+  <a href="#projects">Projects</a>
+  <a href="#extras">More</a>
+  <a href="#contact">Contact</a>
+</div>
 
 <!-- ═══ HERO ═══ -->
 <section id="home">
@@ -751,18 +876,18 @@ footer{
 
   <div class="hero-inner">
     <div class="hero-number">// 001</div>
-    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>IT &amp; AI Researcher · 3rd Semester</div>
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>IT &amp; AI Researcher · Lahore, Pakistan</div>
     <h1 class="hero-title">
       <span class="t-line1">Alishbah</span>
       <span class="t-line2">Waheed</span>
     </h1>
     <p class="hero-sub">
-      Passionate about building <strong>smart systems</strong> and exploring the intersection of software development, artificial intelligence, and modern web technologies.
+      An <strong>IT undergraduate</strong> with experience in artificial intelligence, software engineering, and programming through academic and personal projects. Skilled in building Python-based applications and applying problem-solving techniques to real-world challenges.
     </p>
     <div class="hero-ctas">
       <a href="#contact" class="cta-main">Let's Connect →</a>
       <a href="#" class="cta-ghost">Download CV ↓</a>
-      <a href="#" class="cta-ghost">View CV ↗</a>
+      <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="cta-ghost">View GitHub ↗</a>
     </div>
   </div>
 
@@ -782,21 +907,21 @@ footer{
           <h2 class="s-title">Passionate about <em>smart systems</em></h2>
         </div>
         <div class="about-body">
-          <p>I am a 3rd semester IT &amp; AI student passionate about building smart systems and exploring modern technologies. My interests span software development, artificial intelligence, and creating interactive web applications using HTML, CSS, and JavaScript.</p>
-          <div class="about-highlight">"My goal is to contribute to next-generation AI systems that deliver measurable, real-world impact."</div>
-          <p>Through my coursework and projects, I am gaining hands-on experience in Python programming and web development fundamentals, applying logical thinking and computational reasoning to every challenge.</p>
+          <p>I am an IT undergraduate at the University of Management &amp; Technology, passionate about building smart systems and exploring modern technologies. My interests span software development, artificial intelligence, and creating interactive web applications.</p>
+          <div class="about-highlight">"An IT undergraduate with experience in artificial intelligence, software engineering, and programming through academic and personal projects."</div>
+          <p>Through my coursework, internships, and personal projects, I am gaining hands-on experience across Python, C++, and web development fundamentals — applying logical thinking and computational reasoning to every challenge while continuously expanding my technical expertise and collaborative abilities.</p>
         </div>
       </div>
       <div class="about-cards rv-r">
         <div class="acard">
           <span class="acard-icon">💻</span>
           <h3>Programming &amp; Web Development</h3>
-          <p>Building projects using Python, HTML, CSS, and JavaScript. Developing small web apps and interactive systems to strengthen coding fundamentals.</p>
+          <p>Building projects using Python, C++, HTML, CSS, JavaScript, and PHP. Developing web apps and interactive systems to strengthen coding fundamentals.</p>
         </div>
         <div class="acard">
           <span class="acard-icon">🤖</span>
           <h3>AI &amp; Machine Learning Basics</h3>
-          <p>Learning foundational AI and ML concepts, practicing Python to understand how computers learn from data and make predictions.</p>
+          <p>Learning foundational AI and ML concepts, practicing Python and its libraries to understand how computers learn from data and make predictions.</p>
         </div>
         <div class="acard">
           <span class="acard-icon">🧩</span>
@@ -819,19 +944,47 @@ footer{
       <div class="skill-tile wide rv">
         <span class="tile-icon">⌨️</span>
         <div class="tile-label">Programming Languages</div>
-        <div class="tile-desc">Core languages used across projects, assignments and coursework with growing proficiency.</div>
+        <div class="tile-desc">Core languages used across projects, internships, and coursework with growing proficiency.</div>
         <div class="tile-tags">
           <span class="ttag">Python</span>
+          <span class="ttag">C++</span>
+          <span class="ttag">C</span>
           <span class="ttag">HTML5</span>
           <span class="ttag">CSS3</span>
           <span class="ttag">JavaScript</span>
-          <span class="ttag">C++</span>
+          <span class="ttag">SQL</span>
+          <span class="ttag">PHP</span>
+          <span class="ttag">Assembly Language</span>
+          <span class="ttag">Bootstrap</span>
         </div>
       </div>
       <div class="skill-tile rv">
-        <span class="tile-icon">🌐</span>
-        <div class="tile-label">Web Development</div>
-        <div class="tile-desc">Building interactive interfaces and dynamic web apps to strengthen design and coding skills.</div>
+        <span class="tile-icon">🧰</span>
+        <div class="tile-label">Frameworks &amp; Libraries</div>
+        <div class="tile-desc">Tools used to build data-driven and web-based applications.</div>
+        <div class="tile-tags">
+          <span class="ttag">NumPy</span>
+          <span class="ttag">Pandas</span>
+          <span class="ttag">MySQL</span>
+          <span class="ttag">BeautifulSoup</span>
+          <span class="ttag">Flask</span>
+          <span class="ttag">Threading</span>
+        </div>
+      </div>
+      <div class="skill-tile rv">
+        <span class="tile-icon">🛠️</span>
+        <div class="tile-label">Tools &amp; Platforms</div>
+        <div class="tile-desc">Daily development, version control, and networking environments.</div>
+        <div class="tile-tags">
+          <span class="ttag">VS Code</span>
+          <span class="ttag">PyCharm</span>
+          <span class="ttag">Jupyter Notebook</span>
+          <span class="ttag">Git</span>
+          <span class="ttag">GitHub</span>
+          <span class="ttag">Git Bash</span>
+          <span class="ttag">Google Colab</span>
+          <span class="ttag">Cisco Packet Tracer</span>
+        </div>
       </div>
       <div class="skill-tile rv">
         <span class="tile-icon">🤖</span>
@@ -842,11 +995,6 @@ footer{
         <span class="tile-icon">🧩</span>
         <div class="tile-label">Problem-Solving</div>
         <div class="tile-desc">Algorithm design, computational thinking, debugging and logical reasoning for real-world challenges.</div>
-      </div>
-      <div class="skill-tile rv">
-        <span class="tile-icon">🛠️</span>
-        <div class="tile-label">Project Development</div>
-        <div class="tile-desc">Hands-on experience applying technical concepts through coursework and independent projects.</div>
       </div>
     </div>
   </div>
@@ -862,10 +1010,76 @@ footer{
     <div class="exp-wrap">
       <div class="exp-node rv">
         <div class="exp-chip">Dec 2025</div>
-        <div class="exp-where">American Lyecetuff School</div>
+        <div class="exp-where">American Lycetuff School · Lahore, Pakistan</div>
         <div class="exp-card">
-          <h3>Cyber Security Workshop</h3>
-          <p>An interactive cybersecurity workshop conducted for over 25 junior students, focusing on essential topics — online safety, password security, and threat recognition. Through hands-on activities and real-life examples, students developed a stronger understanding of digital risks and protective measures, enhancing digital literacy and inspiring curiosity about responsible technology use.</p>
+          <h3>Cyber-Security Workshop — Team Lead</h3>
+          <p>Conducted an interactive cybersecurity workshop for over 25 junior students, focusing on online safety, password security, and threat awareness.</p>
+          <p>Delivered hands-on activities and practical demonstrations to promote digital literacy and safe technology practices, enhancing students' understanding of digital risks and protective measures.</p>
+        </div>
+      </div>
+      <div class="exp-node rv">
+        <div class="exp-chip">Dec 2025</div>
+        <div class="exp-where">CodeAlpha · Remote, Pakistan</div>
+        <div class="exp-card">
+          <h3>Python Programming Intern</h3>
+          <p>Developed Python projects involving automation, chatbots, and game-based applications.</p>
+          <p>Applied core Python concepts including file handling, OOP, functions, and data structures.</p>
+        </div>
+      </div>
+      <div class="exp-node rv">
+        <div class="exp-chip">Dec 2025</div>
+        <div class="exp-where">Code Sentinel · Remote, Pakistan</div>
+        <div class="exp-card">
+          <h3>C++ Intern</h3>
+          <ul>
+            <li>Worked on C++ programming covering OOP concepts, DSA, file handling, and exception handling.</li>
+            <li>Built and practiced console-based problems to strengthen logic building and problem-solving skills.</li>
+            <li>Applied core C++ concepts including classes, objects, loops, and data structures.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="container">
+    <div class="s-head rv">
+      <p class="s-label">Education</p>
+      <h2 class="s-title">How I got <em>here</em></h2>
+    </div>
+    <div class="exp-wrap">
+      <div class="exp-node rv">
+        <div class="exp-chip">10/2024 – 07/2028</div>
+        <div class="exp-where">University of Management &amp; Technology · Lahore, Pakistan</div>
+        <div class="exp-card">
+          <h3>BS in Information Technology</h3>
+          <div class="exp-courses"><strong>Core courses:</strong> Object Oriented Programming, Data Structures, Assembly Language, Software Engineering, Database Systems, Computer Networks, Web Technologies, Open-Source Software Development</div>
+        </div>
+      </div>
+      <div class="exp-node rv">
+        <div class="exp-chip">2022 – 2024</div>
+        <div class="exp-where">Lahore College for Women University · Lahore, Pakistan</div>
+        <div class="exp-card">
+          <h3>ICS – Physics</h3>
+          <div class="exp-courses"><strong>Core courses:</strong> Physics, Mathematics, Computer Science (C Language/Database)</div>
+        </div>
+      </div>
+      <div class="exp-node rv">
+        <div class="exp-chip">2009 – 2022</div>
+        <div class="exp-where">American Lycetuff School · Lahore, Pakistan</div>
+        <div class="exp-card">
+          <h3>Computer Science</h3>
+          <div class="exp-courses"><strong>Core courses:</strong> Mathematics, Physics, Chemistry, and Computer Science, establishing core scientific and computing knowledge.</div>
+        </div>
+      </div>
+      <div class="exp-node rv">
+        <div class="exp-chip">2025 – 2026</div>
+        <div class="exp-where">Aspire Institute · Massachusetts, United States (Virtual)</div>
+        <div class="exp-card">
+          <h3>Aspire Leadership Program</h3>
+          <p>An international online program developing leadership, teamwork, communication, and digital collaboration skills.</p>
         </div>
       </div>
     </div>
@@ -882,38 +1096,136 @@ footer{
     <div class="proj-grid">
       <div class="proj-card rv">
         <div class="proj-card-shine"></div>
-        <div class="proj-idx">01 — Project</div>
-        <div class="proj-title">Library Management System</div>
-        <p class="proj-body">A robust console application leveraging C++ concepts to efficiently manage books, members, and transactions. Features include book search, issue/return tracking, persistent file storage, and a clean user-friendly interface for streamlined library operations.</p>
+        <div class="proj-top">
+          <div class="proj-idx">01 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+        <div class="proj-title">Real-Time Chat System</div>
+        <p class="proj-body">A real-time messaging application demonstrating live communication between users, built with a focus on responsive interaction and clean, structured code.</p>
         <div class="proj-stack">
-          <span class="pchip">C++</span><span class="pchip">OOP</span><span class="pchip">File Storage</span>
+          <span class="pchip">Python</span><span class="pchip">Networking</span><span class="pchip">Real-Time</span>
         </div>
       </div>
       <div class="proj-card rv">
         <div class="proj-card-shine"></div>
-        <div class="proj-idx">02 — Project</div>
-        <div class="proj-title">Car Parking Simulation</div>
-        <p class="proj-body">A graphics-based, real-time simulation of a car parking system built with Object-Oriented Programming concepts. Features interactive parking management, vehicle tracking, dynamic slot allocation, and modular scalable architecture.</p>
-        <div class="proj-stack">
-          <span class="pchip">C++</span><span class="pchip">OOP</span><span class="pchip">Graphics</span>
+        <div class="proj-top">
+          <div class="proj-idx">02 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
         </div>
-      </div>
-      <div class="proj-card rv">
-        <div class="proj-card-shine"></div>
-        <div class="proj-idx">03 — Project</div>
-        <div class="proj-title">DSA Chat System</div>
-        <p class="proj-body">A C++ project applying structured designs and algorithms to manage devices, optimize task scheduling, and demonstrate practical problem-solving and algorithmic thinking in real-world automation scenarios.</p>
-        <div class="proj-stack">
-          <span class="pchip">C++</span><span class="pchip">DSA</span><span class="pchip">Algorithms</span>
-        </div>
-      </div>
-      <div class="proj-card rv">
-        <div class="proj-card-shine"></div>
-        <div class="proj-idx">04 — Project</div>
         <div class="proj-title">Smart Home Automation System</div>
         <p class="proj-body">A Python-based smart home simulation implementing structured design and data handling principles. Manages devices, automates tasks, and demonstrates practical use of DSA concepts for efficient, real-world system operation.</p>
         <div class="proj-stack">
           <span class="pchip">Python</span><span class="pchip">DSA</span><span class="pchip">Automation</span>
+        </div>
+      </div>
+      <div class="proj-card rv">
+        <div class="proj-card-shine"></div>
+        <div class="proj-top">
+          <div class="proj-idx">03 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+        <div class="proj-title">DSA Visualizer</div>
+        <p class="proj-body">An interactive tool for visualizing data structures and algorithms in action, built to make abstract computational concepts easier to understand and explore.</p>
+        <div class="proj-stack">
+          <span class="pchip">DSA</span><span class="pchip">Visualization</span><span class="pchip">JavaScript</span>
+        </div>
+      </div>
+      <div class="proj-card rv">
+        <div class="proj-card-shine"></div>
+        <div class="proj-top">
+          <div class="proj-idx">04 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+        <div class="proj-title">My-Portfolio</div>
+        <p class="proj-body">This personal portfolio website — a fully custom, animated single-page site showcasing my education, skills, experience, and projects.</p>
+        <div class="proj-stack">
+          <span class="pchip">HTML</span><span class="pchip">CSS</span><span class="pchip">JavaScript</span>
+        </div>
+      </div>
+      <div class="proj-card rv">
+        <div class="proj-card-shine"></div>
+        <div class="proj-top">
+          <div class="proj-idx">05 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+        <div class="proj-title">AI-Resume Analyzer</div>
+        <p class="proj-body">A Python tool that parses and evaluates resumes, applying data handling and text-processing techniques to surface structured insights from unstructured documents.</p>
+        <div class="proj-stack">
+          <span class="pchip">Python</span><span class="pchip">AI</span><span class="pchip">Text Processing</span>
+        </div>
+      </div>
+      <div class="proj-card rv">
+        <div class="proj-card-shine"></div>
+        <div class="proj-top">
+          <div class="proj-idx">06 — Project</div>
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="proj-link">GitHub →</a>
+        </div>
+        <div class="proj-title">Reflecto — Open-Source Project</div>
+        <p class="proj-body">A personal productivity web app covering mood tracking, journaling, study notes, and task management, built in both PHP and Python/Flask versions with PDF export and theme switching.</p>
+        <div class="proj-stack">
+          <span class="pchip">Flask</span><span class="pchip">PHP</span><span class="pchip">MySQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ACHIEVEMENTS & LANGUAGES ═══ -->
+<section id="extras">
+  <div class="container">
+    <div class="s-head rv">
+      <p class="s-label">Achievements &amp; Languages</p>
+      <h2 class="s-title">Certifications &amp; <em>languages</em></h2>
+    </div>
+    <div class="extras-layout">
+      <div class="cert-list rv-l">
+        <div class="cert-item">
+          <div class="cert-ico">🎓</div>
+          <div class="cert-info">
+            <div class="cert-name">360-Degree Transformation Program</div>
+            <div class="cert-by">Certificate · University of Management and Technology</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-ico">🐍</div>
+          <div class="cert-info">
+            <div class="cert-name">Python Programming</div>
+            <div class="cert-by">E-Certificate · FreeCodeCamp</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-ico">🤖</div>
+          <div class="cert-info">
+            <div class="cert-name">Introduction to Artificial Intelligence</div>
+            <div class="cert-by">E-Certificate · Coursera.org</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-ico">☁️</div>
+          <div class="cert-info">
+            <div class="cert-name">Introduction to Information Technology &amp; AWS Cloud</div>
+            <div class="cert-by">E-Certificate · AWS</div>
+          </div>
+        </div>
+        <div class="cert-item">
+          <div class="cert-ico">🛡️</div>
+          <div class="cert-info">
+            <div class="cert-name">Cyber Security Analyst</div>
+            <div class="cert-by">E-Certificate · Forage</div>
+          </div>
+        </div>
+      </div>
+      <div class="rv-r">
+        <div class="lang-box">
+          <h3>Languages</h3>
+          <div class="lang-row">
+            <span class="lang-name">English</span>
+            <span class="lang-level">Professional</span>
+          </div>
+          <div class="lang-row">
+            <span class="lang-name">Urdu</span>
+            <span class="lang-level">Native</span>
+          </div>
         </div>
       </div>
     </div>
@@ -935,15 +1247,23 @@ footer{
           <span class="contact-brand-role">IT &amp; AI Researcher</span>
         </div>
         <div class="clinks">
-          <a href="mailto:alishbah@example.com" class="clink">
+          <a href="mailto:alishbaw026@gmail.com" class="clink">
             <div class="clink-ico">✉️</div>
             <div class="clink-info">
               <div class="clink-lbl">Email</div>
-              <div class="clink-val">alishbah@example.com</div>
+              <div class="clink-val">alishbaw026@gmail.com</div>
             </div>
             <span class="clink-arr">→</span>
           </a>
-          <a href="#" class="clink">
+          <a href="tel:+923024669967" class="clink">
+            <div class="clink-ico">📞</div>
+            <div class="clink-info">
+              <div class="clink-lbl">Phone</div>
+              <div class="clink-val">+92 302 4669967</div>
+            </div>
+            <span class="clink-arr">→</span>
+          </a>
+          <a href="https://linkedin.com/in/alishbahwaheed" target="_blank" class="clink">
             <div class="clink-ico">💼</div>
             <div class="clink-info">
               <div class="clink-lbl">LinkedIn</div>
@@ -951,13 +1271,20 @@ footer{
             </div>
             <span class="clink-arr">→</span>
           </a>
-          <a href="https://thealishbahwaheed.github.io/Portfolio/" target="_blank" class="clink">
+          <a href="https://github.com/TheAlishbahWaheed" target="_blank" class="clink">
             <div class="clink-ico">🐙</div>
             <div class="clink-info">
-              <div class="clink-lbl">GitHub Portfolio</div>
-              <div class="clink-val">thealishbahwaheed.github.io</div>
+              <div class="clink-lbl">GitHub</div>
+              <div class="clink-val">github.com/TheAlishbahWaheed</div>
             </div>
             <span class="clink-arr">→</span>
+          </a>
+          <a href="#" class="clink">
+            <div class="clink-ico">📍</div>
+            <div class="clink-info">
+              <div class="clink-lbl">Location</div>
+              <div class="clink-val">Lahore, Pakistan</div>
+            </div>
           </a>
         </div>
       </div>
@@ -981,36 +1308,37 @@ footer{
 </footer>
 
 <script>
-/* ─── CAT CURSOR ─── */
+/* ─── CAT CURSOR (desktop only) ─── */
+const isTouch = window.matchMedia('(max-width:768px)').matches || ('ontouchstart' in window);
 const cur = document.getElementById('cur');
 let mx=0, my=0;
 let pawTimer=0;
 
-document.addEventListener('mousemove', e=>{
-  mx=e.clientX; my=e.clientY;
-  cur.style.left = mx+'px';
-  cur.style.top  = my+'px';
+if(!isTouch){
+  document.addEventListener('mousemove', e=>{
+    mx=e.clientX; my=e.clientY;
+    cur.style.left = mx+'px';
+    cur.style.top  = my+'px';
+    clearTimeout(pawTimer);
+    pawTimer = setTimeout(()=>{ spawnPaw(mx, my); }, 120);
+  });
 
-  // spawn paw dot trail every ~120ms
-  clearTimeout(pawTimer);
-  pawTimer = setTimeout(()=>{
-    spawnPaw(mx, my);
-  }, 120);
-});
+  function spawnPaw(x, y){
+    const dot = document.createElement('div');
+    dot.className='paw-dot';
+    dot.style.left = (x + (Math.random()*10-5)) + 'px';
+    dot.style.top  = (y + (Math.random()*10-5)) + 'px';
+    document.body.appendChild(dot);
+    setTimeout(()=>dot.remove(), 800);
+  }
 
-function spawnPaw(x, y){
-  const dot = document.createElement('div');
-  dot.className='paw-dot';
-  dot.style.left = (x + (Math.random()*10-5)) + 'px';
-  dot.style.top  = (y + (Math.random()*10-5)) + 'px';
-  document.body.appendChild(dot);
-  setTimeout(()=>dot.remove(), 800);
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{ cur.classList.add('hovering'); });
+    el.addEventListener('mouseleave',()=>{ cur.classList.remove('hovering'); });
+  });
+} else {
+  cur.style.display='none';
 }
-
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{ cur.classList.add('hovering'); });
-  el.addEventListener('mouseleave',()=>{ cur.classList.remove('hovering'); });
-});
 
 /* ─── INTRO SEQUENCE ─── */
 const intro   = document.getElementById('intro');
@@ -1018,22 +1346,17 @@ const awEl    = document.getElementById('awLetters');
 const fullNm  = document.getElementById('fullName');
 const nav     = document.getElementById('nav');
 
-// Step 1 (t=0.4s): AW pops in (CSS handles)
-// Step 2 (t=1.6s): morph AW → full name
 setTimeout(()=>{
-  // Hide individual letters
   awEl.querySelectorAll('span').forEach(s=>{
     s.style.transition='opacity .35s ease, transform .35s ease';
     s.style.opacity='0';
     s.style.transform='scale(.6)';
   });
-  // Show full name with expansion
   setTimeout(()=>{
     fullNm.classList.add('show');
   }, 200);
 }, 1600);
 
-// Step 3 (t=3.5s): curtain exit
 setTimeout(()=>{
   intro.classList.add('exit');
   setTimeout(()=>{
@@ -1042,6 +1365,25 @@ setTimeout(()=>{
     nav.classList.add('show');
   }, 1150);
 }, 3500);
+
+/* ─── MOBILE NAV ─── */
+const navToggle = document.getElementById('navToggle');
+const navPanel  = document.getElementById('navMobilePanel');
+const navScrim  = document.getElementById('navScrim');
+
+function closeMobileNav(){
+  navToggle.classList.remove('open');
+  navPanel.classList.remove('open');
+  navScrim.classList.remove('open');
+}
+navToggle.addEventListener('click', ()=>{
+  const willOpen = !navPanel.classList.contains('open');
+  navToggle.classList.toggle('open', willOpen);
+  navPanel.classList.toggle('open', willOpen);
+  navScrim.classList.toggle('open', willOpen);
+});
+navScrim.addEventListener('click', closeMobileNav);
+navPanel.querySelectorAll('a').forEach(a=>a.addEventListener('click', closeMobileNav));
 
 /* ─── SCROLL REVEAL ─── */
 const allRv = document.querySelectorAll('.rv,.rv-l,.rv-r,.rv-s');
@@ -1060,7 +1402,7 @@ let lastY=0;
 window.addEventListener('scroll',()=>{
   const y=window.scrollY;
   if(y<80){ nav.style.transform='translateY(0)'; }
-  else if(y>lastY+6){ nav.style.transform='translateY(-110%)'; }
+  else if(y>lastY+6){ nav.style.transform='translateY(-110%)'; closeMobileNav(); }
   else if(y<lastY-6){ nav.style.transform='translateY(0)'; }
   lastY=y;
 });
