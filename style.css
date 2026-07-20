@@ -758,6 +758,7 @@ footer{
   .nav-toggle{cursor:pointer}
 }
 
+
 @media(max-width:420px){
   .hero-eyebrow{font-size:.58rem;padding:.4rem 1rem}
   .cert-item{padding:1.1rem 1.2rem}
