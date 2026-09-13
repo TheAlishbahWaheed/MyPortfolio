@@ -31,6 +31,25 @@
       cfg.resumeTemplateId && !cfg.resumeTemplateId.startsWith('YOUR_');
   }
 
+  // Separate readiness check for the owner-notification template, since
+  // that one's optional even once the visitor-copy send is configured —
+  // this way an unconfigured owner template never blocks the visitor's
+  // download or their own copy.
+  function ownerNotifyReady() {
+    const cfg = window.EMAILJS_CONFIG;
+    return typeof window.emailjs !== 'undefined' && cfg &&
+      cfg.publicKey && !cfg.publicKey.startsWith('YOUR_') &&
+      cfg.serviceId && !cfg.serviceId.startsWith('YOUR_') &&
+      cfg.ownerNotifyTemplateId && !cfg.ownerNotifyTemplateId.startsWith('YOUR_');
+  }
+
+  // Belt-and-suspenders init — contact.js already calls this once
+  // EMAILJS_CONFIG is filled in, but this file doesn't rely on load
+  // order to make sure emailjs.init() has actually run before send().
+  if (emailjsReady() || ownerNotifyReady()) {
+    try { emailjs.init({ publicKey: window.EMAILJS_CONFIG.publicKey }); } catch (e) {}
+  }
+
   function openModal() {
     modal.classList.add('is-open');
     modal.setAttribute('aria-hidden', 'false');
@@ -87,16 +106,27 @@
     }
 
     // The local download always fires immediately — it never depends on
-    // email delivery. The EmailJS send (when configured) happens
-    // alongside it, best-effort, so a slow/failed send never blocks the
-    // visitor from getting the file right away.
+    // email delivery. Both EmailJS sends below (visitor copy + owner
+    // alert) happen alongside it, best-effort, so a slow/failed send
+    // never blocks the visitor from getting the file right away.
     if (emailjsReady()) {
       emailjs.send(window.EMAILJS_CONFIG.serviceId, window.EMAILJS_CONFIG.resumeTemplateId, {
         visitor_email: val.trim(),
       }).catch(() => {});
-      setTimeout(finish, 400);
-    } else {
-      setTimeout(finish, 500);
     }
+
+    // Notifies Alishbah directly whenever someone downloads the resume,
+    // so she can see who's interested and reach out first. Its "To"
+    // address is fixed inside the EmailJS template itself (see
+    // emailjs-config.js), not read from the form, so it always lands in
+    // her inbox regardless of whose email the visitor typed in.
+    if (ownerNotifyReady()) {
+      emailjs.send(window.EMAILJS_CONFIG.serviceId, window.EMAILJS_CONFIG.ownerNotifyTemplateId, {
+        visitor_email: val.trim(),
+        sent_at: new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' }),
+      }).catch(() => {});
+    }
+
+    setTimeout(finish, emailjsReady() ? 400 : 500);
   });
 })();
